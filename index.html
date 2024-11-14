@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birthday Card</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <style>
+    *::before,
+    *::after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #a55d76; /* لون بامبي غامق */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: #ffffff; /* لون أبيض للنص */
+    }
+
+    /* الصفحة الأولى */
+    .first-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #a55d76; /* لون بامبي غامق */
+      color: #ffffff; /* لون أبيض للنص */
+    }
+
+    .click-button {
+      font-size: 24px;
+      padding: 15px 30px;
+      border: none;
+      background-color: #d18b97; /* لون فاتح للزر */
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .click-button:hover {
+      background-color: #e09d9c; /* تغيير لون الزر عند التحويم */
+    }
+
+    /* الصفحة الثانية */
+    .container {
+      width: 400px;
+      height: 400px;
+      background-color: #ffffff;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+      border-radius: 80px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+      padding-top: 170px;
+      display: none;
+    }
+
+    h1 {
+      position: relative;
+      top: -140px;
+      margin-bottom: -60px;
+      opacity: 0;
+      animation: fadeIn 2s forwards 0s;
+      color: #d16e8c; /* لون بامبي فاتح للعناوين */
+    }
+
+    p {
+      margin-top: -130px;
+      opacity: 0;
+      animation: fadeIn 2s forwards 3s;
+      color: #d16e8c; /* لون بامبي فاتح للنص */
+    }
+
+    .timer {
+      font-size: 18px;
+      margin-top: 20px;
+      font-weight: bold;
+      opacity: 0;
+      animation: fadeIn 2s forwards 8s;
+      color: #d16e8c; /* لون بامبي فاتح للعداد */
+    }
+
+    .cake {
+      width: 100%;
+      position: absolute;
+      bottom: 40px;
+      opacity: 0;
+      animation: fadeIn 2s forwards 10s;
+    }
+
+    @keyframes fadeIn {
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .bottom-layer,
+    .top-layer,
+    .middle-layer {
+      height: 80px;
+      width: 240px;
+      position: relative;
+      margin: auto;
+      background-repeat: repeat;
+      background-size: 100% 100%, 60px 100px;
+      background-position: 28px 0;
+      background-image: linear-gradient(
+          transparent 50px,
+          #f8c8d8 50px, /* لون وردي فاتح للكيكة */
+          #f8c8d8 60px, /* لون وردي فاتح للكيكة */
+          transparent 60px
+        ),
+        radial-gradient(circle at 30px 5px, #e2a1d1 30px, #f0c8d8 31px); /* لون وردي فاتح للنقوش */
+    }
+
+    .middle-layer {
+      transform: scale(0.85);
+      top: 72px;
+      animation: rise-1 2s forwards;
+    }
+
+    @keyframes rise-1 {
+      100% {
+        top: 7px;
+      }
+    }
+
+    .top-layer {
+      transform: scale(0.7);
+      top: 144px;
+      animation: rise-2 2s 2s forwards;
+    }
+
+    @keyframes rise-2 {
+      100% {
+        top: 26px;
+      }
+    }
+
+    .candle {
+      background: repeating-linear-gradient(
+        45deg,
+        #fd48b8 0,
+        #fd48b8 5px,
+        #ff8dcc 5px,
+        #ff8dcc 10px
+      );
+      height: 45px;
+      width: 15px;
+      position: absolute;
+      margin: auto;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      animation: rise-3 1s 4s forwards;
+    }
+
+    @keyframes rise-3 {
+      100% {
+        bottom: 202px;
+      }
+    }
+
+    .candle:after {
+      content: "";
+      position: absolute;
+      height: 16px;
+      width: 16px;
+      background-color: #ffee54;
+      border-radius: 0 50% 50% 50%;
+      transform: scale(0) rotate(45deg);
+      bottom: 50px;
+      left: -0.5px;
+      animation: flame 1.5s 5s forwards;
+    }
+
+    @keyframes flame {
+      100% {
+        transform: scale(1) rotate(45deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="first-page" id="first-page">
+    <button class="click-button" onclick="showBirthdayCard()">Click Here, Miss.Haneen!</button>
+  </div>
+
+  <div class="container" id="birthday-card">
+    <h1>Happy 19th Birthday, Miss.Haneen!</h1>
+    <p>Wishing you a year full of joy, love, and wonderful moments!<br>Your uncle, Abed.</p>
+    <div class="timer" id="countdown"></div>
+    <div class="cake">
+      <div class="candle"></div>
+      <div class="top-layer"></div>
+      <div class="middle-layer"></div>
+      <div class="bottom-layer"></div>
+    </div>
+  </div>
+
+  <script>
+    function showBirthdayCard() {
+      // إخفاء الصفحة الأولى
+      document.getElementById('first-page').style.display = 'none';
+      // عرض الصفحة الثانية
+      document.getElementById('birthday-card').style.display = 'block';
+      
+      // بدء العد التنازلي
+      const birthDate = new Date('2006-02-26T00:00:00'); // تاريخ ميلاد Miss. Haneen
+      setInterval(function() {
+        const now = new Date();
+        const timeRemaining = birthDate - now;
+
+        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        document.getElementById('countdown').innerHTML =
+          `The world just got luckier since: <br> ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
