@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://misshaneen.ddns.net/sitemap.xml
