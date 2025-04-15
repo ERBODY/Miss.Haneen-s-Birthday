@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="g7VZeUqEvpQthrLXEbjhbA-WuIu-m7zrZZjStIAMlfU" />
   <title>Haneen's Birthday</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  </style>
-</head>
+  <!-- لو عندك ملف style.css فعلي في static، سيبه. غير كده احذف السطر -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+
+  <!-- حطينا كل الستايل هنا -->
+  <style>
     *::before,
     *::after {
       padding: 0;
@@ -15,27 +17,26 @@
       box-sizing: border-box;
     }
     body {
-      background-color: #a55d76; /* لون بامبي غامق */
+      background-color: #a55d76;
       font-family: Arial, sans-serif;
       text-align: center;
-      color: #ffffff; /* لون أبيض للنص */
+      color: #ffffff;
     }
 
-    /* الصفحة الأولى */
     .first-page {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background-color: #a55d76; /* لون بامبي غامق */
-      color: #ffffff; /* لون أبيض للنص */
+      background-color: #a55d76;
+      color: #ffffff;
     }
 
     .click-button {
       font-size: 24px;
       padding: 15px 30px;
       border: none;
-      background-color: #d18b97; /* لون فاتح للزر */
+      background-color: #d18b97;
       color: white;
       font-weight: bold;
       cursor: pointer;
@@ -44,10 +45,9 @@
     }
 
     .click-button:hover {
-      background-color: #e09d9c; /* تغيير لون الزر عند التحويم */
+      background-color: #e09d9c;
     }
 
-    /* الصفحة الثانية */
     .container {
       width: 400px;
       height: 400px;
@@ -68,14 +68,14 @@
       margin-bottom: -60px;
       opacity: 0;
       animation: fadeIn 2s forwards 0s;
-      color: #d16e8c; /* لون بامبي فاتح للعناوين */
+      color: #d16e8c;
     }
 
     p {
       margin-top: -130px;
       opacity: 0;
       animation: fadeIn 2s forwards 3s;
-      color: #d16e8c; /* لون بامبي فاتح للنص */
+      color: #d16e8c;
     }
 
     .timer {
@@ -84,7 +84,7 @@
       font-weight: bold;
       opacity: 0;
       animation: fadeIn 2s forwards 8s;
-      color: #d16e8c; /* لون بامبي فاتح للعداد */
+      color: #d16e8c;
     }
 
     .cake {
@@ -113,11 +113,11 @@
       background-position: 28px 0;
       background-image: linear-gradient(
           transparent 50px,
-          #f8c8d8 50px, /* لون وردي فاتح للكيكة */
-          #f8c8d8 60px, /* لون وردي فاتح للكيكة */
+          #f8c8d8 50px,
+          #f8c8d8 60px,
           transparent 60px
         ),
-        radial-gradient(circle at 30px 5px, #e2a1d1 30px, #f0c8d8 31px); /* لون وردي فاتح للنقوش */
+        radial-gradient(circle at 30px 5px, #e2a1d1 30px, #f0c8d8 31px);
     }
 
     .middle-layer {
@@ -207,13 +207,10 @@
 
   <script>
     function showBirthdayCard() {
-      // إخفاء الصفحة الأولى
       document.getElementById('first-page').style.display = 'none';
-      // عرض الصفحة الثانية
       document.getElementById('birthday-card').style.display = 'block';
       
-      // بدء العد التنازلي
-      const birthDate = new Date('2006-02-26T00:00:00'); // تاريخ ميلاد Miss. Haneen
+      const birthDate = new Date('2006-02-26T00:00:00');
       setInterval(function() {
         const now = new Date();
         const timeRemaining = birthDate - now;
